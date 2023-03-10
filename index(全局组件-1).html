@@ -1,0 +1,41 @@
+  <!DOCTYPE html>
+  <html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Document</title> 
+    <!--引入vue-->
+     <script src="http://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+  <body>
+  <!--注册全局组件，放到页面上-->
+  <!--
+       Vue.component('my-component-name', { /* ... */ })
+       Vue.component('MyComponentName', { /* ... */ })
+
+       组件命名，可使用上述两种方式。
+       但因html不区分大小写，如果用vHeader的方式命名，在html中使用时，用 v-header
+                            如果用v-header的方式命名，则html中直接用 v-header
+  -->
+
+    <div id="app">
+      <p><v-header></v-header></p>
+      <p><v-header></v-header></p>
+      <p><v-header></v-header></p>
+      <p><v-header></v-header></p>
+    </div>
+    
+    <script>
+      //第1步：注册全局组件，第一个参数是组件名，第二个参数是配置
+             //配置的大括号里，可写data、template、methods、component……(见官网)
+      Vue.component('vHeader', {
+        data () {
+          return {
+            count: 0
+          }
+        },
+        template: '<button v-on:click="count++">被单击{{count}}次</button>'
+      })
+      var vm = new Vue({ el: '#app' })
+    </script>
+  </body>
+  </html>

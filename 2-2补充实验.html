@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <table border="1" width='50%' height="40px" align="center" style="border-collapse: collapse;background-color:rgba(153, 148, 141, 0.507);">
+            <th>书籍名称</th>
+            <th>出版日期</th>
+            <th>价格</th>
+            <th>购买数量</th>
+            <th>操作</th>
+            <tr align="center" height="90px" style="background-color: white;" v-for="book in buy">
+             <td><img :src="img[index++]"><center>{{book.bookname}}</center></td>
+             <td>{{book.time}}</td>
+             <td>￥{{book.cost}}</td>
+             <td><button v-on:@click="click1">+</button>  
+                {{book.num}} 
+                <button v-on:@click="click2">-</button></td>
+             <td><button @click="click3">移除</button></td>   
+            </tr>
+            <tr align="right" height="20px" style="background-color: white;border-collapse: collapse;">
+            <td>总价：{{costall}}</td>
+            <!-- <td :rowspan=""></td> -->
+            </tr>
+        </table>
+    </div>
+    <style> img{width:100px;height:100px;} </style>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script>
+        var vm=new Vue({
+            el:"#app",
+            data:{
+                img:['img/01.jpeg','img/02.jpeg','img/03.jpeg','img/04.jpeg'],
+                buy:[{bookname:'张曼玉',time:'2022年1月',cost:'50.00',num:0,id:0},
+                     {bookname:'王祖贤',time:'2021年6月',cost:'40.00',num:0,id:1},
+                     {bookname:'邱淑贞',time:'2021年4月',cost:'30.00',num:0,id:2},
+                     {bookname:'周慧敏',time:'2021年5月',cost:'20.00',num:0,id:3}
+                ],
+                index:-1,
+                costall:0
+            },
+            methods:{
+                click1(){
+                    this.buy[1][3].num++
+                },
+                click2(){
+                    buy[0].num<=0?0:this.buy[0].num--
+                },
+                Costsum(){
+                    this.costall=buy[0].num*parseInt(buy[0].cost)+buy[1].num*parseInt(buy[1].cost)+buy[2].num*parseInt(buy[2].cost)+buy[3].num*parseInt(buy[3].cost)
+                }
+            }
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,58 @@
+      <!DOCTYPE html>
+      <html>
+      <head>
+      <meta charset="UTF-8">
+      <title>Document</title> 
+      <!--引入vue-->
+      <script src="http://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+      </head>
+      <body>
+         <!--注册全局组件，放到页面。另外，在局部组件内使用它-->
+         <!--任意地方使用。      用在其他组件中，则写在template内-->
+      <div id="app">
+         <mycomp></mycomp>
+      </div>
+
+      <script>
+         //第1，创建全局组件，第一个参数是组件名，第二个参数是配置
+         Vue.component('v-header', {
+         template: `
+            <div>
+               导航栏组件
+            </div> 
+         `
+         })
+          
+        //第2，继续添加侧边栏，对应的全局组件
+      Vue.component('v-side', {
+        template: `
+           <div>
+              侧边栏组件
+           </div> 
+        `
+      })
+
+        //第3，创建局部组件，并在局部组件中使用全局组件v-header
+         const com1 = {
+         data(){
+            return{
+            }
+         },
+         template:`
+            <div>
+                  <v-header></v-header>
+                  <div>
+                      <v-side></v-side>
+                  </div>
+                  
+            </div>
+         `
+         }
+         var vm = new Vue({
+            el: '#app',
+            components:{
+            mycomp:com1
+            } })
+      </script>
+      </body>
+      </html>

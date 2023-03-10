@@ -1,0 +1,79 @@
+  <!DOCTYPE html>
+  <html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Document</title> 
+    <!--引入vue-->
+     <script src="http://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+  <body>
+       <!--父组件向子组件传输数据-->
+       <!--com1是个局部组件，child是个全局组件。-->
+       <!--com1作为父组件，child作为子组件。-->
+    <div id="app">
+      <mycomp></mycomp>
+    </div>
+    
+    <script>
+      //子组件中一个按钮，单击时，向父组件传递数据：即child组件向com1传递数据
+      Vue.component('child',{
+        template:`
+          <div style='width:500px;height:100px;background-color:green;'>
+            <h2>绿色，小的，是子组件</h2>
+            请选择省份：
+              <select v-model='sheng' @change='selectInput'>
+                 <option value='广东'>广东</option>
+                 <option value='湖南'>湖南</option>
+                 <option value='江西'>江西</option>
+                 <option value='浙江'>浙江</option>
+              </select>
+          </div>
+        `,
+        data(){
+          return{sheng:''}
+        },
+        methods:{
+          selectInput(){
+            console.log(this.sheng);
+            this.$emit('selectHandle',this.sheng)
+          }
+        }
+      })
+
+      //创建一个局部组件，作为父组件
+      const com1 = {
+        data(){
+          return{
+             childInfo:''
+          }
+        },
+                 //在父组件上 绑定自定义的事件
+        template:`
+           <div style="width:500px;height:400px;background-color:#ccc">
+               <child @selectHandle='sel'></child>
+
+                 <h2>父组件</h2>
+               子组件中选择的省份是：{{childInfo}}
+               
+            </div>
+        `,
+        methods:{
+          sel(Info){
+             this.childInfo=Info
+          }
+        }
+      }
+      //vue实例
+      var vm = new Vue({
+        el:"#app",
+        components:{
+            mycomp:com1
+        }
+      })
+  /*总结：子传父
+    1. 在父组件中，引用子组件时，绑定自定义事件。（绑定）
+    2. 在子组件中，触发原生事件，对应的函数中通过this.$emit触发自定义事件，同时抛值。（触发）
+  */
+    </script>
+  </body>
+  </html>

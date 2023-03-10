@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title> 
+  <script src="http://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <!-- 第3步：使用局部组件mycomp -->
+    <my-comp></my-comp>
+    
+  </div>
+
+  <script>
+    //第1步：创建组件
+    //var com1 = {template:'<p>注册局部组件</p>'}
+    const com1 = {template:'<button>我是按钮</button>'}
+
+    //第2步：挂载子组件：在vue实例中配置components属性
+    var vm  = new Vue({
+        el:"#app",
+        components:{
+          my-component-name:com1
+        }
+     })
+  </script>
+</body>
+</html>

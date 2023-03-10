@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title> 
+  <!--引入vue-->
+   <script src="http://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+     <!--平行组件之间的数据传输-->
+     <!--如，购物车页面，内容组件中点击'加入购物车'，导航栏组件中的购物车按钮处
+       数量也跟着加1-->
+  <div id="app">
+    <mycomp></mycomp>
+  </div>
+  
+  <script>
+    //第4，布局之后。实现内容栏组件向导航栏组件传值，平行组件之间
+    // 中央数据总线，实际是创建一个空白的vue实例
+    var bus = new Vue();
+
+    //第1，创建导航栏组件，全局，其中会显示购物车中商品数量
+    Vue.component('v-header',{
+      template:`
+        <div style='width:500px;height:80px;background-color:green;'>
+          <h3>这是导航栏组件--是子组件1</h3>
+          ******
+          购物车中商品数量：{{countAll}}
+        </div>
+      `,
+      data(){
+        return{countAll:0}
+      },
+      //created方法，注册组件时，默认自动执行
+      // $on 绑定事件
+      created(){  
+          bus.$on('add',(n)=>{
+              this.countAll+=n;
+          })
+      }
+    })
+    //第2，创建内容栏组件，内部组件
+    const content = {
+        data(){
+            return{count:0}
+        },
+        template:`
+           <div style="width:500px;height:200px;background-color:gray;">
+                <h3>我是内容栏组件--是子组件2</h3>
+                
+                <p>我是商品01号</P>
+                <button @click="handle">加入购物车</button>
+                <p>我是商品02号</P>
+                <button @click="handle">加入购物车</button>
+           </div>
+        `,
+        methods:{  //第5，触发绑定的事件,用 $emit触发
+            handle(){
+               bus.$emit('add',1)
+            }
+        }
+    }
+
+    //第3，创建一个局部组件，作为父组件
+    const com1 = {
+      data(){
+        return{
+           childInfo:''
+        }
+      },
+      components:{
+          con:content
+      },
+      template:`
+         <div style="width:500px;height:400px;background-color:#ccc">
+             <v-header @selectHandle='sel'></v-header>
+             <con></con>
+            
+             <h2>最大的 浅灰色 是父组件</h2>
+          </div>
+      `
+    }
+    //vue实例
+    var vm = new Vue({
+      el:"#app",
+      components:{
+          mycomp:com1
+      }
+    })
+/*总结：平行通信
+  
+*/
+  </script>
+</body>
+</html>
