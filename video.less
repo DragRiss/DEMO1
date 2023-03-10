@@ -1,0 +1,87 @@
+*{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    user-select: none;
+}
+.con {
+    width: 1280px;
+    height: 720px;
+    margin: 30px auto;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+  
+  video {
+    width: 100%;
+    height: 100%;
+  }
+  .icon-bofang,.icon-zanting{
+    font-size: 30px;
+  }
+  button.play-pause-button {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    width: 50px;
+    height: 50px;
+background-color: pink;
+    background-size: 50%;
+    border-radius: 50%;
+    outline: none;
+    cursor: pointer;
+    transition: transform 0.5s ease-in-out;
+  }
+  
+  button.play-pause-button:hover {
+    transform: scale(1.5);
+  }
+  
+  input[type="range"].progress-bar {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 10px;
+    background: linear-gradient(to right, lightgreen, pink);
+    outline: none;
+    position: absolute;
+    bottom: 0;
+  }
+  
+  input[type="range"].progress-bar::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 15px;
+    height: 15px;
+    background: white;
+    border: 1px solid black;
+    cursor: pointer;
+  }
+
+  .beishu{
+    // overflow: hidden;
+    color: red;
+    position: absolute;
+    bottom: 10px;
+    right: 0;
+    cursor: pointer;
+    
+  }
+  .beishu ul li{
+    text-align: center;
+    background-image: linear-gradient(to bottom right, lightgreen, pink);
+    margin-bottom: 10px;
+    border-radius: 5px;
+  }
+  .beishu ul li:hover{
+    background-image: linear-gradient(to bottom right, pink, skyblue);
+  }
+  .changeSpeed{
+    border-radius: 50%;
+    background: pink;
+  }
+  .active{
+    display: none;
+  }
