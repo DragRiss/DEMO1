@@ -1,0 +1,59 @@
+  <!DOCTYPE html>
+  <html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Document</title> 
+    <!--引入vue-->
+     <script src="http://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+  <body>
+       <!--注册局部组件，放到页面上-->
+    <div id="app">
+      <mycomp></mycomp>
+    </div>
+    
+    <!--template模板，写html时更方便：高亮显示，自动补全-->
+    <template id="temp">   <!--多行html，不能单独放在template内。放在div内。否则只识别第一行 -->
+      <div>
+        <p>我是子组件自己的数据</p>
+        <h3>我是父组件传递过来的第1个数据::{{name}}</h3>
+        <h2>我是父组件传递来的第2个数据：{{gra}}</h2>
+    </div>
+    </template>
+
+    <script>
+      //创建一个全局组件，作为子组件
+      //用到了template模板
+      Vue.component('v-child',{
+        template:'#temp',
+        props:['name','gra']
+      })
+
+      //创建一个局部组件，作为父组件
+      const com1 = {
+        data(){
+          return{
+            msg:'我是父组件传递的数据abcdef',
+            grade:123
+          }
+        },
+              //template中直接引用了全局组件child
+        template:`
+           <div>
+               <v-child :name='msg' :gra='grade'></v-child>  
+            </div>
+        `
+      }
+      //vue实例
+      var vm = new Vue({
+        el:"#app",
+        components:{
+            mycomp:com1
+        }
+      })
+      //总结：在子组件中声明props接收在父组件中挂载的属性
+      //      在子组件中使用
+      //      在父组件中绑定自定义的属性
+    </script>
+  </body>
+  </html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title> 
+  <script src="http://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <!-- 第3步：使用局部组件mycomp -->
+    <p><mycomp></mycomp></p>
+    <p><mycomp></mycomp></p>
+    <p><mycomp></mycomp></p>
+  </div>
+  
+  <script>
+    //第1步：创建组件
+  //组件的参数对象，主要有：
+  //template模板——用来显示组件将要在html显示的html标签
+  //data数据——用来返回vue要显示的数据，在组件中data必须是一个函数，不然无法独立保持独立性，会影响其他组件。
+  //methods——组件的方法集
+  //props——组件的属性声明，方便外部传入数据给组件。
+  
+  //注意：data中的数据，必须以函数方式，用return返回
+  //注意：template中含多行html，须用反引号
+    const com1 = {
+      data(){     
+        return{
+          msg:'我是老信息'
+        }
+      },
+      template:`    
+              <div>
+                {{msg}}
+                <button @click="add">我是按钮</button>
+              </div>
+            `,
+      methods:{
+        add(){
+          this.msg='我是崭新的数据，啦啦啦，你好你好'
+        }
+      }
+      }
+    
+    //第2步：挂载子组件：在vue实例中配置components属性
+    var vm  = new Vue({
+        el:"#app",
+        components:{
+          mycomp:com1    
+        }
+     })
+  </script>
+</body>
+</html>
